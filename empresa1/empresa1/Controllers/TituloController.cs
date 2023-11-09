@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 
-namespace departamento.Controllers
+namespace titulo.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DepartamentoController : ControllerBase
+    public class TituloController : ControllerBase
     {
-        private readonly ILogger<DepartamentoController> _logger;
+        private readonly ILogger<TituloController> _logger;
         private readonly Aplication_Context _aplicacionContexto;
-        public DepartamentoController(
-            ILogger<DepartamentoController> logger,
+        public TituloController(
+            ILogger<TituloController> logger,
             Aplication_Context aplicacionContexto)
         {
             _logger = logger;
@@ -22,42 +22,42 @@ namespace departamento.Controllers
         //[Route("")]
         [HttpPost]
         public IActionResult Post(
-            [FromBody] Departamento departamento)
+            [FromBody] Titulo titulo)
         {
-            _aplicacionContexto.departamento.Add(departamento);
+            _aplicacionContexto.titulo.Add(titulo);
             _aplicacionContexto.SaveChanges();
-            return Ok(departamento);
+            return Ok(titulo);
         }
         //READ: Obtener lista de estudiantes
         //[Route("")]
         [HttpGet]
 
-        public IEnumerable<Departamento> Get()
+        public IEnumerable<Titulo> Get()
         {
-            return _aplicacionContexto.departamento.ToList();
+            return _aplicacionContexto.titulo.ToList();
         }
 
         //Update: Modificar estudiantes
         //[Route("/id")]
         [HttpPut]
-        public IActionResult Put([FromBody] Departamento departamento)
+        public IActionResult Put([FromBody] Titulo titulo)
         {
-            _aplicacionContexto.departamento.Update(departamento);
+            _aplicacionContexto.titulo.Update(titulo);
             _aplicacionContexto.SaveChanges();
-            return Ok(departamento);
+            return Ok(titulo);
 
         }
         //Delete: Eliminar estudiantes
         //[Route("/id")]
         [HttpDelete]
-        public IActionResult Delete(int departamentoID)
+        public IActionResult Delete(int tituloID)
         {
-            _aplicacionContexto.departamento.Remove(
-                _aplicacionContexto.departamento.ToList()
-                .Where(x => x.iddepartamento == departamentoID)
+            _aplicacionContexto.titulo.Remove(
+                _aplicacionContexto.titulo.ToList()
+                .Where(x => x.idtitulo == tituloID)
                 .FirstOrDefault());
             _aplicacionContexto.SaveChanges();
-            return Ok(departamentoID);
+            return Ok(tituloID);
         }
     }
 }
