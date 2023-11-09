@@ -1,4 +1,5 @@
 using empresa1.Models;
+using empresa1.Models1;
 using Microsoft.EntityFrameworkCore;
 
 namespace Empresa1.Context
@@ -10,6 +11,7 @@ namespace Empresa1.Context
 
 
         public DbSet<Salario> salario { get; set; }
+        public DbSet<Departamento> departamento { get; set; }
 
 
     }
