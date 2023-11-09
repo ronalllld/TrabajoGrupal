@@ -1,0 +1,81 @@
+
+
+
+
+
+
+
+
+
+BEGIN;
+
+CREATE TABLE IF NOT EXISTS public.departamento (
+  iddepartamento bigint NOT NULL,
+  nombre text COLLATE pg_catalog."default" NOT NULL,
+  area text COLLATE pg_catalog."default" NOT NULL,
+  CONSTRAINT departamento_pkey PRIMARY KEY (iddepartamento)
+);
+
+CREATE TABLE IF NOT EXISTS public.empleado (
+  idempleado bigint NOT NULL,
+  nombre text COLLATE pg_catalog."default" NOT NULL,
+  apellido text COLLATE pg_catalog."default" NOT NULL,
+  genero boolean NOT NULL,
+  fechanacimiento character varying COLLATE pg_catalog."default" NOT NULL,
+  iddepartamento bigint NOT NULL,
+  idseguro bigint NOT NULL,
+  idsalario bigint NOT NULL,
+  CONSTRAINT empleado_pkey PRIMARY KEY (idempleado)
+);
+
+CREATE TABLE IF NOT EXISTS public.salario (
+  idsalario bigint NOT NULL,
+  salario bigint NOT NULL,
+  fechainicio character varying COLLATE pg_catalog."default" NOT NULL,
+  CONSTRAINT salario_pkey PRIMARY KEY (idsalario)
+);
+
+CREATE TABLE IF NOT EXISTS public.seguro (
+  idseguro bigint NOT NULL,
+  tipo text COLLATE pg_catalog."default" NOT NULL,
+  importe bigint NOT NULL,
+  fechaimporte character varying COLLATE pg_catalog."default" NOT NULL,
+  CONSTRAINT seguro_pkey PRIMARY KEY (idseguro)
+);
+
+CREATE TABLE IF NOT EXISTS public.titulo (
+  idtitulo bigint NOT NULL,
+  titulo text COLLATE pg_catalog."default" NOT NULL,
+  descripcion text COLLATE pg_catalog."default" NOT NULL,
+  idempleado bigint NOT NULL,
+  CONSTRAINT titulo_pkey PRIMARY KEY (idtitulo)
+);
+
+ALTER TABLE IF EXISTS public.empleado
+  ADD CONSTRAINT iddepartamento FOREIGN KEY (iddepartamento)
+  REFERENCES public.departamento (iddepartamento) MATCH SIMPLE
+  ON UPDATE NO ACTION
+  ON DELETE NO ACTION;
+
+ALTER TABLE IF EXISTS public.empleado
+  ADD CONSTRAINT idslario FOREIGN KEY (idsalario)
+  REFERENCES public.salario (idsalario) MATCH SIMPLE
+  ON UPDATE NO ACTION
+  ON DELETE NO ACTION
+  NOT VALID;
+
+ALTER TABLE IF EXISTS public.empleado
+  ADD CONSTRAINT idseguro FOREIGN KEY (idseguro)
+  REFERENCES public.seguro (idseguro) MATCH SIMPLE
+  ON UPDATE NO ACTION
+  ON DELETE NO ACTION
+  NOT VALID;
+
+ALTER TABLE IF EXISTS public.titulo
+  ADD CONSTRAINT idempleado FOREIGN KEY (idempleado)
+  REFERENCES public.empleado (idempleado) MATCH SIMPLE
+  ON UPDATE NO ACTION
+  ON DELETE NO ACTION
+  NOT VALID;
+
+END;
