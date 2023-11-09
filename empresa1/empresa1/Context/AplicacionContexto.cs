@@ -13,6 +13,7 @@ namespace Empresa1.Context
         public DbSet<Titulo> titulo { get; set; }
         public DbSet<Seguro> seguro { get; set; }
         public DbSet<Salario> salario { get; set; }
+        public DbSet<Empelado> empleado { get; set; }
 
 
     }
