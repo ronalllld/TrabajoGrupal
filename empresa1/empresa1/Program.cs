@@ -1,4 +1,4 @@
-using empresa1.Context;
+using Empresa1.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
